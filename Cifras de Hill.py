@@ -28,7 +28,7 @@ def matriz_codificadora():
 
 
 def receber_palavra():
-    palavra = input("Digite a palavra para ser codificada: ")  # Ver se tem que ser em letra maiúscula
+    palavra = input("Digite a palavra para ser codificada: ")
 
     return palavra
 
@@ -43,11 +43,6 @@ def separar_palavra(palavra):
 
 
 def atribuir_numero_correspondente(palavra_separada, alfabeto):
-    """
-    Recebe a lista de pares ['VA', 'GA', ...] e converte cada letra para seu número
-    usando o alfabeto da Cifra de Hill.
-    Retorna uma lista de vetores numéricos, ex: [[22,1], [7,1], ...]
-    """
 
     palavra_numerica = []
 
@@ -74,19 +69,17 @@ def codificar_palavra(matriz_codificadora, palavra_numerada):
 
     palavra_codificada_numeros = []
 
-    n = len(matriz_codificadora)  # dimensão da matriz (ex.: 2, 3, 4...)
+    n = len(matriz_codificadora)  # dimensão da matriz
 
     for vetor in palavra_numerada:
-        # cria vetor resultado com zeros
         novo_vetor = [0] * n
 
-        # multiplicação matricial generalizada
         for i in range(n):
             soma = 0
             for j in range(n):
                 soma += matriz_codificadora[i][j] * vetor[j]
 
-            novo_vetor[i] = soma % 26  # aplicar mod 26 (Cifra de Hill)
+            novo_vetor[i] = soma % 26  # aplicar mod 26
 
         palavra_codificada_numeros.append(novo_vetor)
 
@@ -94,16 +87,8 @@ def codificar_palavra(matriz_codificadora, palavra_numerada):
 
 
 def atribuir_letras(palavra_codificada_numeros, alfabeto):
-    """
-    Recebe vetores numéricos codificados (ex.: [[3, 14], [7, 2], ...])
-    e converte cada número para a letra correspondente.
 
-    Retorna:
-    - lista de dígrafos codificados: ['CO', 'GB', ...]
-    - string final: 'COGB...'
-    """
-
-    # Criar dicionário inverso: número → letra
+    # Criar dicionário inverso: número para letra
     inverso = {v: k for k, v in alfabeto.items()}
 
     palavra_codificada_letras = []
